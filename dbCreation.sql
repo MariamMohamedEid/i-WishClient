@@ -13,7 +13,7 @@ GRANT ALL PRIVILEGES TO wishDB;
 --User_s Table
 CREATE TABLE User_s (
     user_id NUMBER PRIMARY KEY,
-    User_Name VARCHAR2(50) NOT NULL,
+    User_Name VARCHAR2(50) NOT NULL UNIQUE,
     Password VARCHAR2(50) NOT NULL,
     Full_Name VARCHAR2(100),
     Email VARCHAR2(100),
@@ -60,8 +60,6 @@ CREATE TABLE FriendRequest (
 --Wish Table
 CREATE TABLE Wish (
     Wish_ID NUMBER PRIMARY KEY,
-    Bought NUMBER DEFAULT 0 NOT NULL,
-    Remaining NUMBER DEFAULT 0 NOT NULL,
     user_id NUMBER NOT NULL,
     Product_ID NUMBER NOT NULL,
     Wish_DateTime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL,
@@ -75,12 +73,14 @@ CREATE TABLE Wish (
 
 
 --Contribution Table
-CREATE TABLE Contributions (
-    Wish_ID NUMBER PRIMARY KEY,
+CREATE TABLE Contribution+ (
+    Contribution_ID NUMBER PRIMARY KEY,
+    Wish_ID NUMBER NOT NULL,
+    User_ID NUMBER NOT NULL,
+    Contribution_DateTime TIMESTAMP NOT NULL,
     Amount NUMBER NOT NULL,
-    CONSTRAINT Contributions_Wish_FK FOREIGN KEY (Wish_ID)
-        REFERENCES Wish(Wish_ID)
-        ON DELETE CASCADE
+    CONSTRAINT fk_wish FOREIGN KEY (Wish_ID) REFERENCES Wish(Wish_ID),
+    CONSTRAINT fk_user FOREIGN KEY (User_ID) REFERENCES User_s(User_ID)
 );
 
 
