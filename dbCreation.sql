@@ -60,10 +60,10 @@ CREATE TABLE FriendRequest (
 --Wish Table
 CREATE TABLE Wish (
     Wish_ID NUMBER PRIMARY KEY,
-    user_id NUMBER NOT NULL,
+    Owner_id NUMBER NOT NULL,
     Product_ID NUMBER NOT NULL,
     Wish_DateTime TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL,
-    CONSTRAINT Wish_User_FK FOREIGN KEY (user_id)
+    CONSTRAINT Wish_User_FK FOREIGN KEY (Owner_id)
         REFERENCES User_s(user_ID)
         ON DELETE CASCADE,
     CONSTRAINT Wish_Product_FK FOREIGN KEY (Product_ID)
@@ -73,14 +73,14 @@ CREATE TABLE Wish (
 
 
 --Contribution Table
-CREATE TABLE Contribution+ (
+CREATE TABLE Contribution(
     Contribution_ID NUMBER PRIMARY KEY,
     Wish_ID NUMBER NOT NULL,
-    User_ID NUMBER NOT NULL,
+    Contributer_ID NUMBER NOT NULL,
     Contribution_DateTime TIMESTAMP NOT NULL,
     Amount NUMBER NOT NULL,
     CONSTRAINT fk_wish FOREIGN KEY (Wish_ID) REFERENCES Wish(Wish_ID),
-    CONSTRAINT fk_user FOREIGN KEY (User_ID) REFERENCES User_s(User_ID)
+    CONSTRAINT fk_user FOREIGN KEY (Contributer_ID) REFERENCES User_s(User_ID)
 );
 
 
