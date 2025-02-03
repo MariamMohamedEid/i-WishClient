@@ -16,7 +16,6 @@ CREATE TABLE User_s (
     User_Name VARCHAR2(50) NOT NULL UNIQUE,
     Password VARCHAR2(50) NOT NULL,
     Full_Name VARCHAR2(100),
-    Email VARCHAR2(100),
     Age NUMBER,
     Gender VARCHAR2(10),
     Phone VARCHAR2(15),
@@ -84,3 +83,12 @@ CREATE TABLE Contribution(
 );
 
 
+-- Notification Table
+CREATE TABLE Notification (
+    Notification_ID NUMBER PRIMARY KEY,
+    Context VARCHAR2(600) NOT NULL,
+    Receiver_ID NUMBER NOT NULL,
+    CONSTRAINT Notification_User_FK FOREIGN KEY (Receiver_ID)
+        REFERENCES User_s(user_id)
+        ON DELETE CASCADE
+);
