@@ -19,8 +19,10 @@ CREATE TABLE User_s (
     Age NUMBER,
     Gender VARCHAR2(10),
     Phone VARCHAR2(15),
-    points Number default 0
+    points Number default 0,
+    CONSTRAINT user_name_unique UNIQUE (User_Name)
 );
+-- ALTER TABLE User_s ADD CONSTRAINT user_name_unique UNIQUE (User_Name);
 
 --Friend Table
 CREATE TABLE Friends (
