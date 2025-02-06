@@ -26,7 +26,7 @@ public class WishServer extends Application {
             server = new WishServerHandler();
             new Thread(() -> {
                 try {
-                    server.startServer(6001); 
+                    server.startServer(7001); 
                     logger.info("Server started successfully.");
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Server failed to start", e);

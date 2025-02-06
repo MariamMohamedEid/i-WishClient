@@ -18,7 +18,7 @@ public class WishServerHandler {
 
     private ServerSocket serverSocket;
     private boolean isRunning = true;
-    private ExecutorService threadPool = Executors.newFixedThreadPool(10); 
+    private ExecutorService threadPool = Executors.newFixedThreadPool(10);
     private Gson gson = new Gson();
 
 
@@ -79,39 +79,32 @@ public class WishServerHandler {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
              PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
 
-            clientSocket.setSoTimeout(0);  
-
-            while (!clientSocket.isClosed()) { 
-                String receivedJson = in.readLine();
-                if (receivedJson == null) 
-                    break;  
+            String receivedJson;
+            while ((receivedJson = in.readLine()) != null) {
                 System.out.println("Received JSON string: " + receivedJson);
-                
-                JsonObject jsonObject;
-                try {
-                    jsonObject = JsonParser.parseString(receivedJson).getAsJsonObject();
-                } catch (JsonSyntaxException e) {
-                    out.println("{\"error\": \"Invalid JSON format\"}");
-                    continue;  
-                }
+                JsonObject jsonObject = JsonParser.parseString(receivedJson).getAsJsonObject();
 
                 String requestType = jsonObject.has("type") ? jsonObject.get("type").getAsString() : "";
                 jsonObject.remove("type");
+
                 switch (requestType) {
                     case "SignUp":
                         UserRequest.handleSignUpRequest(jsonObject, out, clientSocket);
                         break;
                     case "LogOut":
+                        // Send logout response to the client
                         out.println("{\"message\": \"Logged out successfully\"}");
-                        clientSocket.close();  // Close connection on logout
-                        return;   //Exit method immediataly
+                        out.flush();  // Ensure the message is sent immediately
+                        // Close the connection after sending the logout response
+                        clientSocket.close();
+                        return;  // Exit the thread after logout
                     default:
                         out.println("{\"error\": \"Unknown request type\"}");
                         break;
                 }
             }
         } catch (SocketException e) {
-            System.err.println("Client disconnected unexpectedly: " + e.getMessage());
+            System.err.println("Client disconnected: " + e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -124,5 +117,6 @@ public class WishServerHandler {
             }
         }
     }
+
     }
 }

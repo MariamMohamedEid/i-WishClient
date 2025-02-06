@@ -3,10 +3,12 @@ package wishserver.serviceLayer;
 
 import com.google.gson.JsonObject;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import java.io.PrintWriter;
 import java.net.Socket;
-import wishserver.dal.SignUp;
-import static wishserver.dal.SignUp.checkUserExist;
+import wishserver.dal.UserAO;
+import static wishserver.dal.UserAO.checkUserExist;
+import wishserver.dto.CurrentUser;
 import wishserver.dto.NewUser;
 
 public class UserRequest {
@@ -25,15 +27,22 @@ public class UserRequest {
             String response;
             System.out.println("Sending response:");
             if(!checkUserExist(newUser)){
-                SignUp.insertEmp(newUser);
-                response  = "{\"status\": \"success\", \"message\": \"User created successfully!\"}";
+                UserAO.insertUser(newUser);
+                JsonElement jsonElement = gson.toJsonTree(newUser);
+                
+                response = "{\"status\": \"success\", \"message\": \"User created successfully!\"}";
                 out.println(response);
                 out.flush(); 
+                
+                CurrentUser currentUser = UserAO.getUser(newUser);
+                String currentUserJson = gson.toJson(currentUser);
+                
+                out.println(currentUserJson);
+                out.flush();        
             }else{
                 response  = "{\"status\": \"Faild\", \"message\": \"User already exist!\"}";
                 out.println(response);
-                out.flush(); 
-                clientSocket.close();
+                out.flush();   
             }   
             
         } catch (Exception e) {
@@ -42,6 +51,10 @@ public class UserRequest {
             out.println(errorResponse);
             out.flush();
         }
+    }
+    
+    public void handleLogInRequest(JsonObject jsonObject, PrintWriter out, Socket clientSocket) {
+        
     }
 
 }

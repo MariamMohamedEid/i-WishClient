@@ -1,4 +1,4 @@
-package wishserver.dto;
+package wishclient.dto;
 
 /**
  *
@@ -17,18 +17,16 @@ public class NewUser extends User {
     }
     
     
-    // Sign UP
+    // Sign up Constructor
     public NewUser(String userName, String password, String fullName, int age, String gender, String phone) {
         super(userName, fullName, age, gender, phone);
         this.password = password; 
     }
     
-    
-    // Log In
+    // Log in Constructor
     public NewUser(String userName, String password) {
         super(userName);
         this.password = password; 
     }
     
 }
-

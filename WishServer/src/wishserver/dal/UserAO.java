@@ -6,9 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.apache.derby.jdbc.ClientDriver;
+import wishserver.dto.CurrentUser;
 import wishserver.dto.NewUser;
+import wishserver.dto.User;
 
-public class SignUp {    
+public class UserAO {    
         
         public static boolean checkUserExist(NewUser newUser) throws SQLException{
             DriverManager.registerDriver(new ClientDriver());
@@ -20,7 +22,7 @@ public class SignUp {
             return rs.next();
         }
         
-        public static boolean insertEmp(NewUser newUser) throws SQLException {
+        public static boolean insertUser(NewUser newUser) throws SQLException {
             DriverManager.registerDriver(new ClientDriver());
             Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "WISHDB", "123");
             PreparedStatement statement;
@@ -40,7 +42,18 @@ public class SignUp {
                return false; 
             }   
         }
-    }
+    public static CurrentUser getUser(NewUser newUser) throws SQLException{
+        DriverManager.registerDriver(new ClientDriver());
+        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "WishDB", "123");
+        PreparedStatement statement;
+        statement = con.prepareStatement("SELECT * FROM User_s WHERE USER_NAME = ?");
+        statement.setString(1, newUser.getUserName());
+        ResultSet rs = statement.executeQuery();
+        rs.next();
+        CurrentUser user = new CurrentUser(rs.getString("USER_NAME"), rs.getInt("Points"));
+        return user;
+     }
+}
     
     
     
