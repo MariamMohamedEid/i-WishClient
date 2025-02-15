@@ -94,31 +94,27 @@ private void handleContribute() {
                     currentUser.getUserName(), wish.getWishID(), points);
                     clientHandler.sendRequest(request);
                     String serverResponse = clientHandler.receiveResponse();
-                    System.out.println("Server Response: " + serverResponse);
+//                    System.out.println("Server Response: " + serverResponse);
 
                     Platform.runLater(() -> {
-                        if (serverResponse != null && serverResponse.contains("success")) {
-                            showAlert(Alert.AlertType.INFORMATION, "Success", "Points contributed successfully!");
+                    if (serverResponse != null && serverResponse.contains("success")) {
+                        showAlert(Alert.AlertType.INFORMATION, "Success", "Points contributed successfully!");
 
-                            // ✅ Update the wish progress in FriendWishListController
-                            if (friendWishlistController != null) {
-                                friendWishlistController.updateWishProgress(wish, points);
-                                friendWishlistController.updatePoints(currentUser.getPoints() - points);
-                                
-                            } else {
-                                System.err.println("Error: friendWishlistController is null!");
-                            }
-
-                            // ✅ Update local user points
-                            currentUser.setPoints(currentUser.getPoints() - points);
-
-                            // ✅ Close the window
-                            Stage stage = (Stage) contributebtn.getScene().getWindow();
-                            stage.close();
+                        if (friendWishlistController != null) {
+                            friendWishlistController.updateWishProgress(wish, points);
+                            friendWishlistController.updatePoints(currentUser.getPoints() - points);
                         } else {
-                            showAlert(Alert.AlertType.ERROR, "Error", "Failed to contribute points.");
+                            System.err.println("Error: friendWishlistController is null!");
                         }
-                    });
+
+
+                        Stage stage = (Stage) contributebtn.getScene().getWindow();
+                        stage.close();
+                    } else {
+                        showAlert(Alert.AlertType.ERROR, "Error", "Failed to contribute points.");
+                    }
+                });
+
                 } catch (IOException e) {
                     Platform.runLater(() -> showAlert(Alert.AlertType.ERROR, "Error", "Server error."));
                 }

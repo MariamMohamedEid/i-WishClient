@@ -40,25 +40,25 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button fx:id="acceptBtn2" layoutX="36.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleAcceptButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E74C3C; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Accept" />
+                  <Button fx:id="acceptBtn2" layoutX="36.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleAcceptButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #2ECC71; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Accept" />
                   <Button fx:id="removeBtn2" layoutX="157.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleRemoveButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E74C3C; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Remove" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button fx:id="acceptBtn3" layoutX="36.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleAcceptButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E74C3C; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Accept" />
+                  <Button fx:id="acceptBtn3" layoutX="36.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleAcceptButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #2ECC71; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Accept" />
                   <Button fx:id="removeBtn3" layoutX="159.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleRemoveButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E74C3C; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Remove" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <Button fx:id="acceptBtn4" layoutX="38.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleAcceptButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E74C3C; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Accept" />
+                  <Button fx:id="acceptBtn4" layoutX="38.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleAcceptButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #2ECC71; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Accept" />
                   <Button fx:id="removeBtn4" layoutX="157.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleRemoveButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E74C3C; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Remove" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <Button fx:id="acceptBtn1" layoutX="36.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleAcceptButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E74C3C; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Accept" />
+                  <Button fx:id="acceptBtn1" layoutX="36.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleAcceptButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #2ECC71; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Accept" />
                   <Button fx:id="removeBtn1" layoutX="155.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleRemoveButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E74C3C; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Remove" />
                </children>
             </AnchorPane>

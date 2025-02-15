@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import wishclient.dto.CurrentUser;
@@ -65,7 +66,7 @@ public class ItemController implements Initializable {
 
             currentUser = gson.fromJson(currentUserJson, CurrentUser.class);
 
-            System.out.println("clientHandler initialized successfully.");
+//            System.out.println("clientHandler initialized successfully.");
 
             productcol.setCellValueFactory(new PropertyValueFactory<>("name"));
             pricecol.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -117,7 +118,7 @@ public class ItemController implements Initializable {
 
             if (items != null) {
                 productList.setAll(items);  
-                System.out.println("Products loaded successfully! Total: " + items.size());
+//                System.out.println("Products loaded successfully! Total: " + items.size());
             } else {
                 System.err.println("Error: Received null or empty item list.");
             }
@@ -133,7 +134,7 @@ public class ItemController implements Initializable {
             return;
         }
 
-        System.out.println("Adding to Wishlist: " + item.getName() + " product_id: "+ item.getProduct_ID());
+//        System.out.println("Adding to Wishlist: " + item.getName() + " product_id: "+ item.getProduct_ID());
 
         JsonObject request = new JsonObject();
         request.addProperty("type", "AddWish");
@@ -148,18 +149,23 @@ public class ItemController implements Initializable {
 
             clientHandler.sendRequest(request.toString());
             String response = clientHandler.receiveResponse();
-
-            if (response != null) {
-                System.out.println("Server Response: " + response);
-            } else {
-                System.err.println("ERROR: No response received.");
+            
+            if (response.contains("success")) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Wish Add Successfully!");
             }
+
 
         } catch (IOException e) {
             System.err.println("ERROR: Failed to add item to wishlist: " + e.getMessage());
         }
     }
-
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     @FXML
     private void handleBackButtonAction(ActionEvent event) throws IOException {
         try {

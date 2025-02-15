@@ -77,7 +77,7 @@ public class FriendRequestController implements Initializable {
 
             clientHandler.sendRequest("{\"type\": \"GetFriendRequests\", \"User\": "+ currentUser.getUserName() +"}\n");
             String serverResponse = clientHandler.receiveResponse();
-            System.out.println(serverResponse);
+//            System.out.println(serverResponse);
             
             Type userListType = new TypeToken<ArrayList<User>>() {}.getType();
             ArrayList<User> wishs = gson.fromJson(serverResponse, userListType);

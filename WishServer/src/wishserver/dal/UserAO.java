@@ -29,6 +29,24 @@ public class UserAO {
             if (con != null) con.close();
         }
     }
+    public static boolean checkUserExist2(String newUser) throws SQLException {
+        DriverManager.registerDriver(new ClientDriver());
+        Connection con = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "WISHDB", "123");
+            statement = con.prepareStatement("SELECT * FROM USER_S WHERE USER_NAME = ?");
+            statement.setString(1, newUser);
+            rs = statement.executeQuery();
+            return rs.next();
+        } finally {
+            if (rs != null) rs.close();
+            if (statement != null) statement.close();
+            if (con != null) con.close();
+        }
+    }
     
     public static boolean insertUser(NewUser newUser) throws SQLException {
         DriverManager.registerDriver(new ClientDriver());

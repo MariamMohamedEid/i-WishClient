@@ -56,10 +56,10 @@ public class NotificationController implements Initializable {
 
                     // Receive the server response
                     String serverResponse = clientHandler.receiveResponse();
-                    System.out.println("Server Response: " + serverResponse);
+//                    System.out.println("Server Response: " + serverResponse);
 
                     if (serverResponse == null || serverResponse.isEmpty()) {
-                        System.out.println("No notifications received from the server.");
+//                        System.out.println("No notifications received from the server.");
                         return null;
                     }
 

@@ -76,6 +76,8 @@ private void handleCharge() {
                         // Notify ProfileController to update points
                         if (profileController != null) {
                             profileController.updatePoints(currentUser.getPoints() + points);
+//                            currentUser.setPoints(currentUser.getPoints() - points);
+
                         } else {
                             System.err.println("Error: profileController is null!");
                         }

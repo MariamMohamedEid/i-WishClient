@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import wishserver.dal.FriendRequsetsAO;
 import wishserver.dal.FriendsAO;
 import wishserver.dal.NotificationsAO;
+import static wishserver.dal.UserAO.checkUserExist;
+import static wishserver.dal.UserAO.checkUserExist2;
 import static wishserver.dal.UserAO.getCurrentUser;
 import wishserver.dto.CurrentUser;
 import wishserver.dto.User;
@@ -31,38 +33,45 @@ public class FriendRequest {
     
     
     
-    public void handleAddRequest(JsonObject jsonObject, PrintWriter out, Socket clientSocket) {
-        try{
-            String userName = jsonObject.get("User").getAsString();
-            String nonFriend = jsonObject.get("NonFriend").getAsString();
-            String response;
-            
-            if(FriendRequsetsAO.checkNonFriend(userName,nonFriend)){
-                if(FriendRequsetsAO.checkRequest(userName,nonFriend)){
-                FriendRequsetsAO.insertFriendReq(userName ,nonFriend);
-                response = "{\"status\": \"success\", \"message\": \"Sent successfully!\"}";
-                out.println(response);
-                out.flush();    
-                }
-                else{
-                    response = "{\"status\": \"success\", \"message\": \"Request already sent!\"}";
-                    out.println(response);
-                    out.flush(); 
-                }
-            }
-            else{
-                response = "{\"status\": \"success\", \"message\": \"you are already Friends!\"}";
-                out.println(response);
-                out.flush();  
-            }
-        
-        } catch (Exception e) {
-            String errorResponse = "{\"status\": \"error\", \"message\": \"Error processing request\"}";
-            System.err.println("Error processing request: " + e.getMessage());
-            out.println(errorResponse);
+public void handleAddRequest(JsonObject jsonObject, PrintWriter out, Socket clientSocket) {
+    try {
+        String userName = jsonObject.get("User").getAsString();
+        String nonFriend = jsonObject.get("NonFriend").getAsString();
+        String response;
+
+
+        if (!checkUserExist2(nonFriend)) { // Ensure the receiver exists
+            response = "{\"status\": \"error\", \"message\": \"User not found!\"}";
+            out.println(response);
             out.flush();
+            return;
         }
-    }   
+
+        // Check if they are already friends
+        if (FriendRequsetsAO.checkNonFriend(userName, nonFriend)) {
+            // Check if a friend request is already sent
+            if (FriendRequsetsAO.checkRequest(userName, nonFriend)) {
+                FriendRequsetsAO.insertFriendReq(userName, nonFriend);
+                response = "{\"status\": \"success\", \"message\": \"Request sent successfully!\"}";
+            } else {
+                response = "{\"status\": \"success\", \"message\": \"Request already sent!\"}";
+            }
+        } else {
+            response = "{\"status\": \"error\", \"message\": \"You are already friends!\"}";
+        }
+
+        out.println(response);
+        out.flush();
+
+    } catch (Exception e) {
+        String errorResponse = "{\"status\": \"error\", \"message\": \"Internal Server Error\"}";
+        System.err.println("Error processing request: " + e.getMessage());
+        e.printStackTrace();
+        out.println(errorResponse);
+        out.flush();
+    }
+}
+
     public void handleRemoveRequest(JsonObject jsonObject, PrintWriter out, Socket clientSocket) {
         try{
             String userName = jsonObject.get("User").getAsString();
@@ -123,7 +132,7 @@ public class FriendRequest {
             ArrayList<User> friends = FriendsAO.getAllFriends(userName);
 
             String jsonResponse = gson.toJson(friends);
-            System.out.println(jsonResponse);
+//            System.out.println(jsonResponse);
             out.println(jsonResponse);
             out.flush();
 
@@ -138,11 +147,11 @@ public class FriendRequest {
     public void handleGetFriendRequestsRequest(JsonObject jsonObject, PrintWriter out, Socket clientSocket) {
         try {
             String userName = jsonObject.get("User").getAsString();
-            System.out.println(userName);
+//            System.out.println(userName);
             ArrayList<User> friends = FriendRequsetsAO.getAllFriendRequests(userName);
             
             String jsonResponse = gson.toJson(friends);
-            System.out.println(jsonResponse);
+//            System.out.println(jsonResponse);
             out.println(jsonResponse);
             out.flush();
 

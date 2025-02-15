@@ -69,7 +69,7 @@ public class AddFriendController implements Initializable {
      @FXML
 private void handleSend() {
     if (clientHandler == null) {
-        System.err.println("Error: ClientHandler is not initialized.");
+//        System.err.println("Error: ClientHandler is not initialized.");
         return;
     }
 
@@ -90,8 +90,12 @@ private void handleSend() {
                 if (serverResponse != null && serverResponse.contains("success")) {
                     showAlert(Alert.AlertType.INFORMATION, "Success", jsonObject.get("message").getAsString());
                     
-                } else {
-                    System.out.println("Failed to send Request. Server response: " + serverResponse);
+                }else if(serverResponse != null && serverResponse.contains("error")) {
+                    showAlert(Alert.AlertType.ERROR, "Error", jsonObject.get("message").getAsString());
+                }
+ 
+                else {
+//                    System.out.println("Failed to send Request. Server response: " + serverResponse);
                 }
             });
             return null;

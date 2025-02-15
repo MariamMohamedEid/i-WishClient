@@ -20,8 +20,9 @@
             <Button fx:id="notificationbtn" onAction="#handleNotificationButtonAction" prefHeight="40.0" prefWidth="136.0" style="-fx-background-color: #3498DB; -fx-text-fill: WHITE; -fx-font-size: 16; -fx-border-radius: 5; -fx-padding: 10;" text="Notifications" />
             <Button fx:id="myfriendbtn" onAction="#handleMyFriendsButtonAction" prefHeight="40.0" prefWidth="135.0" style="-fx-background-color: #3498DB; -fx-text-fill: WHITE; -fx-font-size: 16; -fx-border-radius: 5; -fx-padding: 10;" text="My Friends" />
             <Button fx:id="addfriendbtn" onAction="#handleAddFriendButtonAction" prefHeight="40.0" prefWidth="135.0" style="-fx-background-color: #3498DB; -fx-text-fill: WHITE; -fx-font-size: 16; -fx-border-radius: 5; -fx-padding: 10;" text="Add Friend" />
-            <Button fx:id="friendreqbtn" onAction="#handleFriendRequestButtonAction" style="-fx-background-color: #3498DB; -fx-text-fill: WHITE; -fx-font-size: 16; -fx-border-radius: 5; -fx-padding: 10;" text="Friend Requests" />
+            <Button fx:id="friendreqbtn" onAction="#handleFriendRequestButtonAction" prefHeight="40.0" prefWidth="135.0" style="-fx-background-color: #3498DB; -fx-text-fill: WHITE; -fx-font-size: 16; -fx-border-radius: 5; -fx-padding: 10;" text="Friend Requests" />
             <Button fx:id="chargepointsbtn" onAction="#handleChargePointsButtonAction" prefHeight="40.0" prefWidth="135.0" style="-fx-background-color: #3498DB; -fx-text-fill: WHITE; -fx-font-size: 16; -fx-border-radius: 5; -fx-padding: 10;" text="Charge Points" />
+            <Button fx:id="editBtn" mnemonicParsing="false" onAction="#handleEditButtonAction" prefHeight="42.0" prefWidth="135.0" style="-fx-background-color: #3498DB; -fx-text-fill: WHITE; -fx-font-size: 16; -fx-border-radius: 5; -fx-padding: 10;" text="Add Wish" />
          </children>
       </VBox>
 
@@ -33,18 +34,16 @@
          </font>
       </Text>
       
-        <!-- User Info Section -->
-        <TextField fx:id="userNametxt" layoutX="170.0" layoutY="100.0" prefHeight="40.0" prefWidth="200.0" 
-                   style="-fx-background-color: #ECF0F1; -fx-border-radius: 5; -fx-font-size: 20; -fx-font-weight: bold; -fx-font-style: italic;" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3498DB" height="80.0" layoutX="958.0" layoutY="20.0" width="200.0" />
-        <Text fill="WHITE" layoutX="980.0" layoutY="50.0" text="My Points">
-           <font>
-              <Font name="System Bold" size="16" />
-           </font>
-        </Text>
-        <TextArea fx:id="pointstxt" editable="false" focusTraversable="false" layoutX="1049.0" layoutY="70.0" 
-                  prefHeight="40.0" prefWidth="85.0" 
-                  style="-fx-background-color: #ECF0F1; -fx-border-radius: 5; -fx-font-size: 20; -fx-font-weight: bold; -fx-font-style: italic;" />
+      <!-- User Info Section -->
+      <TextField fx:id="userNametxt" layoutX="170.0" layoutY="100.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ECF0F1; -fx-border-radius: 5; -fx-font-size: 20; -fx-font-weight: bold; -fx-font-style: italic;" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3498DB" height="80.0" layoutX="958.0" layoutY="20.0" width="200.0" />
+      <Text fill="WHITE" layoutX="980.0" layoutY="50.0" text="My Points">
+         <font>
+            <Font name="System Bold" size="16" />
+         </font>
+      </Text>
+      <TextArea fx:id="pointstxt" editable="false" focusTraversable="false" layoutX="1024.0" layoutY="70.0" prefHeight="62.0" prefWidth="110.0" style="-fx-background-color: #ECF0F1; -fx-border-radius: 5; -fx-font-size: 20; -fx-font-weight: bold; -fx-font-style: italic;" />
+
       <!-- Main Content Section -->
       <GridPane layoutX="170.0" layoutY="200.0" prefHeight="468.0" prefWidth="978.0" style="-fx-background-color: #FFFFFF; -fx-border-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
          <columnConstraints>
@@ -85,23 +84,11 @@
                   <Button fx:id="removeBtn1" layoutX="36.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleRemoveButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #E74C3C; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Remove" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <children>
-                  <Button fx:id="editBtn" layoutX="38.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleEditButtonAction" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #F39C12; -fx-text-fill: WHITE; -fx-font-size: 14; -fx-border-radius: 5;" text="Edit" />
-               </children>
-            </AnchorPane>
-            <TextField fx:id="wishtxt1" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" 
-           style="-fx-background-color: #ECF0F1; -fx-border-radius: 5; -fx-font-size: 20; -fx-font-weight: bold; -fx-font-style: italic;" />
-
-<TextField fx:id="wishtxt2" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" 
-           style="-fx-background-color: #ECF0F1; -fx-border-radius: 5; -fx-font-size: 20; -fx-font-weight: bold; -fx-font-style: italic;" GridPane.rowIndex="1" />
-
-<TextField fx:id="wishtxt3" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" 
-           style="-fx-background-color: #ECF0F1; -fx-border-radius: 5; -fx-font-size: 20; -fx-font-weight: bold; -fx-font-style: italic;" GridPane.rowIndex="2" />
-
-<TextField fx:id="wishtxt4" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" 
-           style="-fx-background-color: #ECF0F1; -fx-border-radius: 5; -fx-font-size: 20; -fx-font-weight: bold; -fx-font-style: italic;" GridPane.rowIndex="3" />
-
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="wishtxt1" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ECF0F1; -fx-border-radius: 5; -fx-font-size: 20; -fx-font-weight: bold; -fx-font-style: italic;" />
+            <TextField fx:id="wishtxt2" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ECF0F1; -fx-border-radius: 5; -fx-font-size: 20; -fx-font-weight: bold; -fx-font-style: italic;" GridPane.rowIndex="1" />
+            <TextField fx:id="wishtxt3" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ECF0F1; -fx-border-radius: 5; -fx-font-size: 20; -fx-font-weight: bold; -fx-font-style: italic;" GridPane.rowIndex="2" />
+            <TextField fx:id="wishtxt4" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ECF0F1; -fx-border-radius: 5; -fx-font-size: 20; -fx-font-weight: bold; -fx-font-style: italic;" GridPane.rowIndex="3" />
          </children>
       </GridPane>
 

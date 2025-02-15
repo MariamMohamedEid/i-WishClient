@@ -12,11 +12,14 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import wishserver.dal.NotificationsAO;
 import wishserver.dal.UserAO;
 import wishserver.dal.WishesAO;
+import static wishserver.dal.WishesAO.getAllContributors;
 import static wishserver.dal.WishesAO.getAllWishes;
 import wishserver.dto.CurrentUser;
 import wishserver.dto.Item;
+import wishserver.dto.User;
 import wishserver.dto.Wish;
 
 /**
@@ -35,7 +38,7 @@ public class WishRequest {
             String userName = jsonObject.get("User").getAsString();
             ArrayList<Wish> wishes = getAllWishes(userName);
             String jsonResponse = gson.toJson(wishes);
-            System.out.println(jsonResponse);
+//            System.out.println(jsonResponse);
             out.println(jsonResponse);
             out.flush();
 
@@ -110,34 +113,34 @@ public static void handleContributeRequest(JsonObject jsonObject, PrintWriter ou
             out.flush();
             return;
         }
-
-        //  Check if user has enough points
-        if (user.getPoints() < amount) {
-            out.println("{\"status\": \"error\", \"message\": \"Insufficient points.\"}");
+        if (wish.getRemaining()< amount) {
+            out.println("{\"status\": \"error\", \"message\": \"Faild to Contribute\"}");
             out.flush();
             return;
         }
 
-        //  Check if the wish still needs contributions
-//        if (wish.getRemaining() < amount) {
-//            out.println("{\"status\": \"error\", \"message\": \"Cannot contribute more than needed.\"}");
-//            out.flush();
-//            return;
-//        }
+        
 
-        //  Deduct points from user and update wish remaining amount
-//        boolean userUpdated = UserAO.deductUserPoints(userName, amount);  
-//        boolean wishUpdated = WishesAO.updateWishRemaining(wishID, wish.getRemaining() - amount);
-//
-//        //  Insert contribution record if both updates succeed
-//        if (userUpdated && wishUpdated) {
-//            WishesAO.wishContribute(userName, wishID, amount);
-//            out.println("{\"status\": \"success\", \"message\": \"Contribution added successfully!\"}");
-//        } else {
-//            out.println("{\"status\": \"error\", \"message\": \"Failed to update database.\"}");
-//        }
+        //  Check if user has enough points
+        if (amount == wish.getRemaining()) {
             WishesAO.wishContribute(userName, wishID, amount);
-            out.println("{\"status\": \"success\", \"message\": \"Contribution added successfully!\"}");
+//            System.out.println("hi");
+            String owner = WishesAO.getWishOwner(wishID);
+            String ownerNotification = "Your wish "+wish.getName()+" has been fully funded by";
+            ArrayList<User> contributors = WishesAO.getAllContributors(wishID);
+            for(User c :contributors){
+                NotificationsAO.createNotification("wish "+ wish.getName()+" for "+ owner+" you contributed to is now fully funded.", c.getUserName());
+                ownerNotification = ownerNotification + " - "+ c.getUserName();
+            }
+            NotificationsAO.createNotification(ownerNotification, owner);   
+        }
+        else{
+                WishesAO.wishContribute(userName, wishID, amount);
+        }
+
+
+
+        out.println("{\"status\": \"success\", \"message\": \"Contribution added successfully!\"}");
 
         out.flush();
     } catch (Exception e) {

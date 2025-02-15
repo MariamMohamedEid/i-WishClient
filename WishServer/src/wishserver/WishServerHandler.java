@@ -30,7 +30,7 @@ public class WishServerHandler {
     public void startServer(int port) throws InterruptedException {
         try {
             serverSocket = new ServerSocket(port);
-            System.out.println("Server started on port " + port);
+//            System.out.println("Server started on port " + port);
 
             while (isRunning) {
                 try {
@@ -93,7 +93,7 @@ public class WishServerHandler {
 
             String receivedJson;
             while ((receivedJson = in.readLine()) != null) {
-                System.out.println("Received JSON string: " + receivedJson);
+//                System.out.println("Received JSON string: " + receivedJson);
                 JsonObject jsonObject = JsonParser.parseString(receivedJson).getAsJsonObject();
 
                 String requestType = jsonObject.has("type") ? jsonObject.get("type").getAsString() : "";

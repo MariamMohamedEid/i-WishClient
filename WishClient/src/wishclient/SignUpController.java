@@ -65,7 +65,7 @@ public class SignUpController implements Initializable {
 private void handleCreateButtonAction(ActionEvent event) {
     try {
         // Connect to the server
-        connectToServer("localhost", 7001);
+        connectToServer();                                              
         clientHandler = WishClient.getClientHandler();
 
         // Check if the client is connected
@@ -110,12 +110,12 @@ private void handleCreateButtonAction(ActionEvent event) {
                 jsonObject.addProperty("type", "SignUp");
                 String userJson = gson.toJson(jsonObject);
 
-                System.out.println("Sending JSON to server: " + userJson);
+//                System.out.println("Sending JSON to server: " + userJson);
 
                 clientHandler.sendRequest(userJson + "\n"); 
-                System.out.println("Request sent. Waiting for response...");
+//                System.out.println("Request sent. Waiting for response...");
                 String response = clientHandler.receiveResponse();
-                System.out.println("Response from server: " + response);
+//                System.out.println("Response from server: " + response);
 
                 if (response == null || response.isEmpty()) {
                     showAlert(AlertType.ERROR, "Error", "No response from the server.");

@@ -40,20 +40,29 @@ public void sendRequest(String request) throws IOException {
 }
 
 public String receiveResponse() throws IOException {
-    if (in == null) {
-        throw new IOException("Input stream is not initialized.");
-    }
-    if (!isConnected()) {
-        throw new IOException("Not connected to the server.");
-    }
     try {
-        return in.readLine();
-    } catch (SocketTimeoutException e) {
-        throw new IOException("Timeout while waiting for server response.", e);
-    } catch (SocketException e) {
-        throw new IOException("Connection to the server was lost: " + e.getMessage(), e);
+        String response = in.readLine();
+        if (response == null) {
+            throw new IOException("Server has closed the connection.");
+        }
+        return response;
+    } catch (IOException e) {
+        closeConnection(); // Close client socket if server shuts down
+        throw e;
     }
 }
+
+public void closeConnection() {
+    try {
+        if (socket != null && !socket.isClosed()) {
+            socket.close();
+            System.out.println("Disconnected from server.");
+        }
+    } catch (IOException e) {
+        System.err.println("Error closing client socket: " + e.getMessage());
+    }
+}
+
     
 
     public void disconnect() throws IOException {
@@ -79,7 +88,14 @@ public String receiveResponse() throws IOException {
     }
 
 
-    public boolean isConnected() {
-        return socket != null && socket.isConnected() && !socket.isClosed();
+public boolean isConnected() {
+    try {
+        if (socket != null && socket.isConnected() && !socket.isClosed()) {
+            return true;
+        }
+        return false;
+    } catch (Exception e) {
+        return false;
     }
+}
 }

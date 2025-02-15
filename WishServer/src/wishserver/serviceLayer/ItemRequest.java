@@ -29,7 +29,7 @@ public class ItemRequest {
         try {
             ArrayList<Item> items = getAllProducts();
             String jsonResponse = gson.toJson(items);
-            System.out.println(jsonResponse);
+//            System.out.println(jsonResponse);
             out.println(jsonResponse);
             out.flush();
         } catch (SQLException e) {

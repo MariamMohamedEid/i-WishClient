@@ -51,7 +51,7 @@ public class LogInController implements Initializable {
     @FXML
     private void handleLogInButtonClick(ActionEvent event) {
         try {
-            connectToServer("localhost", 7001);
+            connectToServer();                               
             clientHandler = WishClient.getClientHandler(); 
 
             if (clientHandler != null && clientHandler.isConnected()) {
@@ -72,13 +72,13 @@ public class LogInController implements Initializable {
                     jsonObject.addProperty("type", "LogIn");
                     String userJson = gson.toJson(jsonObject);
 
-                    System.out.println("Sending JSON to server: " + userJson);
+//                    System.out.println("Sending JSON to server: " + userJson);
 
                     // Send request and receive response
                     clientHandler.sendRequest(userJson + "\n"); // Ensure request ends with newline
-                    System.out.println("Request sent. Waiting for response...");
+//                    System.out.println("Request sent. Waiting for response...");
                     String response = clientHandler.receiveResponse();
-                    System.out.println("Response from server: " + response);
+//                    System.out.println("Response from server: " + response);
 
                     if (response == null || response.isEmpty()) {
                         showAlert(AlertType.ERROR, "Error", "No response from the server.");

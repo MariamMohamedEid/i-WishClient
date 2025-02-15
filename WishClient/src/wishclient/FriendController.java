@@ -80,7 +80,7 @@ public class FriendController implements Initializable {
     }
     public void loadFriends(String jsonResponse) {
         if (jsonResponse == null || jsonResponse.isEmpty()) {
-            System.out.println("Error: JSON response is null or empty.");
+//            System.out.println("Error: JSON response is null or empty.");
             return;
     }
 
@@ -89,12 +89,12 @@ public class FriendController implements Initializable {
         User[] friendsArray = gson.fromJson(jsonResponse, User[].class);
 
         if (friendsArray == null) {
-            System.out.println("Error: Parsed JSON returned null.");
+//            System.out.println("Error: Parsed JSON returned null.");
             return;
         }
 
         List<User> friends = Arrays.asList(friendsArray);
-        System.out.println("Friends loaded successfully.");
+//        System.out.println("Friends loaded successfully.");
         updateFriendsList(friends);
     } catch (Exception e) {
         e.printStackTrace();
@@ -115,7 +115,7 @@ public class FriendController implements Initializable {
 
     private void handleDeleteFriend() {
         
-        System.out.println("DEBUG: Delete friend clicked");
+//        System.out.println("DEBUG: Delete friend clicked");
         
         // Debugging: Check if UI elements are initialized  
         if (friendListView == null) {
@@ -126,17 +126,17 @@ public class FriendController implements Initializable {
         String selectedFriend = friendListView.getSelectionModel().getSelectedItem();
 
         if (selectedFriend == null) {
-            System.out.println("No friend selected.");
+//            System.out.println("No friend selected.");
             return;
         }
-        System.out.println("DEBUG: Selected friend = " + selectedFriend);        
+//        System.out.println("DEBUG: Selected friend = " + selectedFriend);        
 
                 // Debugging: Check if currentUser is initialized
         if (currentUser == null) {
             System.err.println("Error: currentUser is null!");
             return;
         }
-        System.out.println("DEBUG: Current user = " + currentUser.getUserName());
+//        System.out.println("DEBUG: Current user = " + currentUser.getUserName());
         
     // Debugging: Check if clientHandler is initialized
         if (clientHandler == null) {
@@ -154,15 +154,13 @@ public class FriendController implements Initializable {
             clientHandler.sendRequest(request.toString());
 
             String serverResponse = clientHandler.receiveResponse();
-        System.out.println("DEBUG: Server response = " + serverResponse);
+//        System.out.println("DEBUG: Server response = " + serverResponse);
             Gson gson = new Gson();
             JsonObject jsonResponse = gson.fromJson(serverResponse, JsonObject.class);
             
             if (jsonResponse.has("status") && jsonResponse.get("status").getAsString().equals("success")) {
                 friendsList.remove(selectedFriend);
-                System.out.println("Friend removed successfully: " + selectedFriend);
-            } else {
-                System.out.println("Error: " + jsonResponse.get("message").getAsString());
+//                System.out.println("Friend removed successfully: " + selectedFriend);
             }
 
         } catch (IOException e) {
@@ -175,7 +173,7 @@ public class FriendController implements Initializable {
 
         String selectedFriend = friendListView.getSelectionModel().getSelectedItem();
         if (selectedFriend == null) {
-            System.out.println("No friend selected.");
+//            System.out.println("No friend selected.");
 
         }else{
             try {

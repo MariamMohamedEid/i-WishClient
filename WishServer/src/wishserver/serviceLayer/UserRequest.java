@@ -26,10 +26,10 @@ public class UserRequest {
     public void handleSignUpRequest(JsonObject jsonObject, PrintWriter out, Socket clientSocket) {
         try {
             NewUser newUser = gson.fromJson(jsonObject, NewUser.class);
-            System.out.println("New User Created: " + newUser.getFullName());
+//            System.out.println("New User Created: " + newUser.getFullName());
 
             String response;
-            System.out.println("Sending response:");
+//            System.out.println("Sending response:");
             if(!checkUserExist(newUser)){
                 UserAO.insertUser(newUser);
                 JsonElement jsonElement = gson.toJsonTree(newUser);
@@ -130,8 +130,8 @@ public class UserRequest {
     try {
         String friendUserName = jsonObject.get("FriendUser").getAsString(); // Get friend's username
         String userName = jsonObject.get("CurrentUser").getAsString();
-        System.out.println(userName);
-        System.out.println(friendUserName);
+//        System.out.println(userName);
+//        System.out.println(friendUserName);
         CurrentUser currentUser = getCurrentUser(userName);
 
         String response = "{\"myusername\": "+userName+", \"mypoints\": "+String.valueOf(currentUser.getPoints())+", \"friendusername\": "+friendUserName+"}";

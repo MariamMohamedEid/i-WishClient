@@ -144,10 +144,6 @@ public class FriendWishListController implements Initializable {
     }
     
 public void updatePoints(int newPoints) {
-    if (currentUser == null) {
-        System.err.println("Error: Current user is null.");
-        return;
-    }
 
     currentUser.setPoints(newPoints);
     
@@ -215,25 +211,29 @@ private void handleContributeButtonAction(ActionEvent event) {
         }
     }
 }
-
 public void updateWishProgress(Wish wish, int points) {
+//    System.out.println("Total wishes after update: " + wishes.size());
+
     if (wish == null) {
         System.err.println("Error: Wish is null.");
         return;
     }
 
-    // Find the wish in the list and update it
+    // ✅ Update only the existing wish object, no duplication
     for (Wish w : wishes) {
         if (w.getWishID() == wish.getWishID()) {
-            int newRemainingAmount = w.getRemaining() - points;
-            w.setRemaining(Math.max(newRemainingAmount, 0)); // Prevent negative values
+            w.setRemaining(w.getRemaining() - points);
             break;
         }
     }
 
-    // Refresh UI
-    Platform.runLater(() -> updateWishDisplay());
+    // ✅ Refresh only the text in the UI
+    Platform.runLater(this::updateWishDisplay);
+//    System.out.println("Total wishes after update: " + wishes.size());
+
 }
+
+
 
     
     

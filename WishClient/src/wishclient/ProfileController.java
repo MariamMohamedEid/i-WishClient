@@ -92,9 +92,11 @@ public class ProfileController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (clientHandler != null && clientHandler.isConnected()) {
         try {
             // Receive the currentUser request
             String currentUserJson = clientHandler.receiveResponse();
+            
 
             Gson gson = new Gson();
             currentUser = gson.fromJson(currentUserJson, CurrentUser.class);
@@ -114,6 +116,10 @@ public class ProfileController implements Initializable {
         } catch (IOException e) {
             System.err.println("Error receiving currentUser JSON: " + e.getMessage());
         }
+        } else {
+            WishClient.showAlert("Connection Error", "Unable to connect to the server.");
+        }
+        
     }
 
     @FXML
@@ -134,6 +140,7 @@ public class ProfileController implements Initializable {
     
     @FXML
     private void handleRemoveButtonAction(ActionEvent event) {
+        if (clientHandler != null && clientHandler.isConnected()) {
         Button clickedButton = (Button) event.getSource();
         TextField[] wishFields = {wishtxt1, wishtxt2, wishtxt3, wishtxt4};
 
@@ -165,12 +172,16 @@ public class ProfileController implements Initializable {
                 return;
             }
         }
+        } else {
+            WishClient.showAlert("Connection Error", "Not connected to the server.");
+        }
     }
 
     
     
    @FXML
     public void handleNotificationButtonAction(ActionEvent event) throws IOException {
+        if (clientHandler != null && clientHandler.isConnected()) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Notification.fxml"));
         Parent root = loader.load();
 
@@ -189,12 +200,16 @@ public class ProfileController implements Initializable {
         notificationStage.initOwner(currentStage);
 
         notificationStage.show();
+                } else {
+            WishClient.showAlert("Connection Error", "Not connected to the server.");
+        }
     }
     
 
     
     @FXML
     public void handleChargePointsButtonAction(ActionEvent event) throws IOException {
+        if (clientHandler != null && clientHandler.isConnected()) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ChargePoints.fxml"));
         Parent root = loader.load();
 
@@ -213,6 +228,9 @@ public class ProfileController implements Initializable {
         chargePointsStage.initOwner(currentStage);
 
         chargePointsStage.show();
+                        } else {
+            WishClient.showAlert("Connection Error", "Not connected to the server.");
+        }
     }
 
 
@@ -269,6 +287,7 @@ public class ProfileController implements Initializable {
             wishFields[i + 1].setUserData(null);
         }
     }
+    
 }
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
@@ -280,26 +299,35 @@ public class ProfileController implements Initializable {
     
     @FXML
     private void handleEditButtonAction(ActionEvent event) throws IOException {
+        if (clientHandler != null && clientHandler.isConnected()) {
                 try {
             clientHandler.sendRequest("{\"type\": \"User\", \"userName\": "+currentUser.getUserName()+"   }\n");
             WishClient.switchScene("Item.fxml", "Items List");
         } catch (IOException ex) {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
+                                        } else {
+            WishClient.showAlert("Connection Error", "Not connected to the server.");
+        }
     }
     
     @FXML
     private void handleMyFriendsButtonAction(ActionEvent event) {
+        if (clientHandler != null && clientHandler.isConnected()) {
         try {
             clientHandler.sendRequest("{\"type\": \"User\", \"userName\": "+currentUser.getUserName()+"   }\n");
             WishClient.switchScene("Friend.fxml", "Friend List");
         } catch (IOException ex) {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
+                                } else {
+            WishClient.showAlert("Connection Error", "Not connected to the server.");
+        }
     }
     
     @FXML
     private void handleAddFriendButtonAction(ActionEvent event) {
+        if (clientHandler != null && clientHandler.isConnected()) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddFriend.fxml"));
             Parent root = loader.load();
@@ -321,17 +349,25 @@ public class ProfileController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
+                                        } else {
+            WishClient.showAlert("Connection Error", "Not connected to the server.");
+        }
     }
     
     @FXML
     private void handleFriendRequestButtonAction(ActionEvent event) {
+        if (clientHandler != null && clientHandler.isConnected()) {
         try {
             clientHandler.sendRequest("{\"type\": \"User\", \"userName\": " + currentUser.getUserName() + "}\n");
             WishClient.switchScene("FriendRequest.fxml", "Friend Requests");
         } catch (IOException ex) {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
+                                                } else {
+            WishClient.showAlert("Connection Error", "Not connected to the server.");
+        }
     }
+        
     
     
 }

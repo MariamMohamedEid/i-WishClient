@@ -23,7 +23,7 @@ public class WishesAO {
 
         try {
             con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "WishDB", "123");
-            statement = con.prepareStatement("SELECT * FROM Wish_View WHERE OWNER_NAME = ? AND (SUM_AMOUNT != PRICE OR SUM_AMOUNT IS NULL)");
+            statement = con.prepareStatement("SELECT distinct wish_id, name, product_id, price, owner_name, sum_amount, REMAINING_AMOUNT FROM Wish_View WHERE OWNER_NAME = ? AND (SUM_AMOUNT != PRICE OR SUM_AMOUNT IS NULL) ");
             statement.setString(1, userName);
             rs = statement.executeQuery();
 
@@ -126,7 +126,7 @@ public class WishesAO {
 
         try {
             con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "WISHDB", "123");
-            statement = con.prepareStatement("SELECT distinct * FROM Wish_View WHERE WISH_ID = ?");
+            statement = con.prepareStatement("SELECT distinct * FROM Wish_View WHERE WISH_ID = ? AND ROWNUM = 1");
             statement.setInt(1, wishID);
             rs = statement.executeQuery();
 
@@ -138,6 +138,29 @@ public class WishesAO {
                     rs.getInt("REMAINING_AMOUNT"),
                     rs.getInt("WISH_ID")
                 );
+            }
+            return null;
+        } finally {
+            if (rs != null) rs.close();
+            if (statement != null) statement.close();
+            if (con != null) con.close();
+        }
+    }
+    
+    public static String getWishOwner(int wishID) throws SQLException {
+        DriverManager.registerDriver(new ClientDriver());
+        Connection con = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "WISHDB", "123");
+            statement = con.prepareStatement("select owner_name from wish where wish_id = ?");
+            statement.setInt(1, wishID);
+            rs = statement.executeQuery();
+
+            if (rs.next()) {
+                  return rs.getString("owner_name");
             }
             return null;
         } finally {
