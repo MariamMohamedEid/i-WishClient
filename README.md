@@ -124,5 +124,5 @@ Server Responsibilities:
 - **Ahmed Otifi** 🔗 [https://github.com/otifi3](https://github.com/otifi3)  
 - **Doaa Reda** 🔗 [https://github.com/doaaredaa](https://github.com/doaaredaa)  
 - **Mariam Eid** 🔗 [https://github.com/MariamMohamedEid](https://github.com/MariamMohamedEid)
-- **Mariam Eid** 🔗 [https://github.com/yomnaafifi](https://github.com/yomnaafifi)
+- **Yomna Afifi** 🔗 [https://github.com/yomnaafifi](https://github.com/yomnaafifi)
 
