@@ -1,12 +1,3 @@
-Here’s your **revised and polished README.md** with the correct clarification:
-
-* Removed mention of Bash/DBMS and clarified Oracle-only DB.
-* Added that **group gifting is already supported and correctly handled**.
-* Maintained professional formatting and logical structure.
-
----
-
-````markdown
 # 🎁 i-Wish Desktop Application
 
 ## Overview
@@ -94,7 +85,7 @@ Server Responsibilities:
 1. **Start the Server**
    ```bash
    java wishserver.WishServer
-````
+
 
 2. **Launch the Client**
 
@@ -135,4 +126,3 @@ Server Responsibilities:
 - **Mariam Eid** 🔗 [https://github.com/MariamMohamedEid](https://github.com/MariamMohamedEid)
 - **Mariam Eid** 🔗 [https://github.com/yomnaafifi](https://github.com/yomnaafifi)
 
-```
